@@ -4,7 +4,7 @@ import { errorResponse, successResponse } from '../util/response.helper';
 import { ResponseMessage } from "../contants/response-message.contant";
 import { IUser } from "../interface/user.interface";
 import { IUserModel } from "../models/interface/user.model.interface";
-import { comparePassword } from "../util/helper";
+import { comparePassword, createToken } from "../util/helper";
 
 export class UserController {
 
@@ -12,7 +12,7 @@ export class UserController {
         try {
 
             const user: IUserModel = await UserService.registerUser(request.body as IUser);
-            return response.status(201).json(successResponse(ResponseMessage.User.successfullyRegistered, user));
+            return response.status(200).json(successResponse(ResponseMessage.User.successfullyRegistered, user));
 
         } catch (error) {
             console.error(`UserController registerUser error: ${error}`);
@@ -35,11 +35,24 @@ export class UserController {
                 return response.status(404).json(errorResponse(ResponseMessage.User.incorrectPassword));
             }
 
-            return response.status(201).json(successResponse(ResponseMessage.User.loginSuccessfull, user));
+            const token = createToken(user);
+
+            const responseData = { user, token };
+
+            return response.status(201).json(successResponse(ResponseMessage.User.loginSuccessfull, responseData));
 
         } catch (error) {
             console.error(`UserController registerUser error: ${error}`);
             return response.status(500).json(errorResponse(ResponseMessage.User.loginNotSuccessfull, error));
+        }
+    }
+
+    public async getUserMenu(request: Request, response: Response) {
+        try {
+            
+        } catch (error) {
+            console.error(`UserController getUserMenu error: ${error}`);
+            return response.status(500).json(errorResponse(ResponseMessage.User.notRegistered, error));
         }
     }
 

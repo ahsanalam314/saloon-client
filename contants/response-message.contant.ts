@@ -22,6 +22,7 @@ export class ResponseMessage {
 
     public static Errors = {
         defaultMessage: 'Something went wrong',
+        authenticationMessage: 'Authentication error',
     }
 
 

@@ -27,11 +27,19 @@ const UserSchema: Schema<IUserModel> = new mongoose.Schema({
         required: true,
         default: Date.now
     },
+    createdBy: {
+        type: String,
+        required: false,
+    },
     updatedAt: {
         type: Date,
         required: true,
         default: Date.now
     },
+    updatedBy: {
+        type: String,
+        required: false,
+    }
 });
 
 UserSchema.pre<IUserModel>('save', async function (next) {

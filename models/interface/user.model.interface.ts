@@ -6,5 +6,7 @@ export interface IUserModel extends Document {
     email: string;
     password: string;
     createdAt: Date;
+    createdBy: string;
     updatedAt: Date;
+    updatedBy: string;
 }
