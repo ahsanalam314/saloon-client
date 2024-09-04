@@ -1,8 +1,8 @@
 import mongoose, { Model, Schema } from "mongoose";
-import { IUserModel } from './interface/user.model.interface';
+import { IAccountModel } from './interface/account.model.interface';
 import bcrypt from 'bcrypt';
 
-const UserSchema: Schema<IUserModel> = new mongoose.Schema({
+const AccountSchema: Schema<IAccountModel> = new mongoose.Schema({
     firstName: {
         type: String,
         required: true,
@@ -15,6 +15,11 @@ const UserSchema: Schema<IUserModel> = new mongoose.Schema({
         type: String,
         required: true,
         unique: true
+    },
+    companyId: {
+        type: Schema.Types.ObjectId,
+        ref: 'Company',
+        required: true
     },
     password: {
         type: String,
@@ -42,7 +47,7 @@ const UserSchema: Schema<IUserModel> = new mongoose.Schema({
     }
 });
 
-UserSchema.pre<IUserModel>('save', async function (next) {
+AccountSchema.pre<IAccountModel>('save', async function (next) {
     if (!this.isModified('password')) {
         return next();
     }
@@ -57,6 +62,6 @@ UserSchema.pre<IUserModel>('save', async function (next) {
 
 });
 
-const User: Model<IUserModel> = mongoose.model<IUserModel>('User', UserSchema);
+const Account: Model<IAccountModel> = mongoose.model<IAccountModel>('Account', AccountSchema);
 
-export { User };
+export { Account };

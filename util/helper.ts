@@ -1,6 +1,6 @@
 import bcrypt from 'bcrypt';
 import jwt from 'jsonwebtoken';
-import { IUser } from '../interface/user.interface';
+import { IAccount } from '../interface/account.interface';
 
 export function comparePassword(password: string, encrptPassword: string): Promise<boolean> {
     return bcrypt.compare(password, encrptPassword);

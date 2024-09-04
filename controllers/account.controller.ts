@@ -1,21 +1,21 @@
 import { Request, Response } from "express";
-import { UserService } from "../services/user.service";
+import { AccountService } from "../services/account.service";
 import { errorResponse, successResponse } from '../util/response.helper';
 import { ResponseMessage } from "../contants/response-message.contant";
-import { IUser } from "../interface/user.interface";
-import { IUserModel } from "../models/interface/user.model.interface";
+import { IAccount } from "../interface/account.interface";
+import { IAccountModel } from "../models/interface/account.model.interface";
 import { comparePassword, createToken } from "../util/helper";
 
-export class UserController {
+export class AccountController {
 
-    public async registerUser(request: Request, response: Response) {
+    public async registerAccount(request: Request, response: Response) {
         try {
 
-            const user: IUserModel = await UserService.registerUser(request.body as IUser);
-            return response.status(200).json(successResponse(ResponseMessage.User.successfullyRegistered, user));
+            const account: IAccountModel = await AccountService.registerAccount(request.body as IAccount);
+            return response.status(200).json(successResponse(ResponseMessage.User.successfullyRegistered, account));
 
         } catch (error) {
-            console.error(`UserController registerUser error: ${error}`);
+            console.error(`AccountController registerAccount error: ${error}`);
             return response.status(500).json(errorResponse(ResponseMessage.User.notRegistered, error));
         }
     }
@@ -23,35 +23,35 @@ export class UserController {
     public async login(request: Request, response: Response) {
         try {
             const { email, password } = request.body;
-            const user = await UserService.findUserByEmail(email);
+            const account = await AccountService.findAccountByEmail(email);
 
-            if (!user) {
+            if (!account) {
                 return response.status(404).json(errorResponse(ResponseMessage.User.emailNotFound));
             }
 
-            const isMatch = await comparePassword(password, user.password);
+            const isMatch = await comparePassword(password, account.password);
 
             if (!isMatch) {
                 return response.status(404).json(errorResponse(ResponseMessage.User.incorrectPassword));
             }
 
-            const token = createToken(user);
+            const token = createToken(account);
 
-            const responseData = { user, token };
+            const responseData = { account, token };
 
             return response.status(201).json(successResponse(ResponseMessage.User.loginSuccessfull, responseData));
 
         } catch (error) {
-            console.error(`UserController registerUser error: ${error}`);
+            console.error(`AccountController login error: ${error}`);
             return response.status(500).json(errorResponse(ResponseMessage.User.loginNotSuccessfull, error));
         }
     }
 
-    public async getUserMenu(request: Request, response: Response) {
+    public async getAccountMenu(request: Request, response: Response) {
         try {
             
         } catch (error) {
-            console.error(`UserController getUserMenu error: ${error}`);
+            console.error(`AccountController getAccountMenu error: ${error}`);
             return response.status(500).json(errorResponse(ResponseMessage.User.notRegistered, error));
         }
     }

@@ -21,7 +21,7 @@ const authenticate = (request: Request, response: Response, next: NextFunction) 
         return response.status(401).json({ message: 'Access denied. No token provided.' });
         }
 
-        jwt.verify(token, process.env.SECRET_KEY as string, (err, user) => {
+        jwt.verify(token, process.env.SECRET_KEY as string, (err, account) => {
             if (err) {
                 return response.status(403).json({ message: 'Invalid token.' });
             }

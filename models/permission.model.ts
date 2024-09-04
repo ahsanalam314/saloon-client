@@ -1,7 +1,7 @@
 import mongoose, { Model, Schema } from "mongoose";
 import { IPermissionModel } from "./interface/permission.mode.interface";
 
-const UserSchema: Schema<IPermissionModel> = new mongoose.Schema({
+const PermissionSchema: Schema<IPermissionModel> = new mongoose.Schema({
     roleId: {
         type: Schema.Types.ObjectId,
         ref: 'Roles',
@@ -12,9 +12,9 @@ const UserSchema: Schema<IPermissionModel> = new mongoose.Schema({
         ref: 'Menu',
         required: true
     },
-    userId: {
+    accountId: {
         type: Schema.Types.ObjectId,
-        ref: 'User',
+        ref: 'Account',
         required: true
     },
     createdAt: {
@@ -36,6 +36,6 @@ const UserSchema: Schema<IPermissionModel> = new mongoose.Schema({
 });
 
 
-const Permission: Model<IPermissionModel> = mongoose.model<IPermissionModel>('Permission', UserSchema);
+const Permission: Model<IPermissionModel> = mongoose.model<IPermissionModel>('Permission', PermissionSchema);
 
 export { Permission };
