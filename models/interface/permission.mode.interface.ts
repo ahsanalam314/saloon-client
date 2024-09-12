@@ -1,6 +1,6 @@
 import { Document } from 'mongoose';
 
-export interface IPermissionModel extends Document {
+export interface IPermission extends Document {
     roleId: Object;
     menuId: Object;
     accountId: Object;

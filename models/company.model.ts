@@ -1,12 +1,23 @@
 import mongoose, { Model, Schema } from "mongoose";
-import { ICompanyModel } from "./interface/company.model.interface";
+import { ICompany } from "./interface/company.model.interface";
+import { v4 } from 'uuid';
 
-const CompanySchema: Schema<ICompanyModel> = new mongoose.Schema({
+const CompanySchema: Schema<ICompany> = new mongoose.Schema({
+    tenantId: {
+        type: String,
+        required: true,
+        unique: true,
+        default: v4
+    },
     name: {
         type: String,
         required: true,
     },
     contact: {
+        type: String,
+        required: true,
+    },
+    address: {
         type: String,
         required: true,
     },
@@ -26,7 +37,7 @@ const CompanySchema: Schema<ICompanyModel> = new mongoose.Schema({
     },
     updatedAt: {
         type: Date,
-        required: true,
+        required: false,
         default: Date.now
     },
     updatedBy: {
@@ -36,6 +47,6 @@ const CompanySchema: Schema<ICompanyModel> = new mongoose.Schema({
 });
 
 
-const Company: Model<ICompanyModel> = mongoose.model<ICompanyModel>('Company', CompanySchema);
+const Company: Model<ICompany> = mongoose.model<ICompany>('Company', CompanySchema);
 
 export { Company };

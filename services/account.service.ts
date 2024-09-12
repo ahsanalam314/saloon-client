@@ -1,10 +1,9 @@
 import { Account, Permission } from "../models";
-import { IAccount } from "../interface/account.interface";
-import { IAccountModel } from "../models/interface/account.model.interface";
+import { IAccount } from "../models/interface/account.model.interface";
 
 export class AccountService {
 
-    public static async registerAccount(account: IAccount): Promise<IAccountModel> {
+    public async registerAccount(account: IAccount): Promise<IAccount> {
         try {
             const newAccount = new Account(account);
             return await newAccount.save();
@@ -14,16 +13,16 @@ export class AccountService {
         }
     }
 
-    public static async findAccountByEmail(email: string): Promise<IAccountModel> {
+    public async findAccountByEmail(email: string): Promise<IAccount> {
         try {
-            return await Account.findOne({ email }) as IAccountModel;
+            return await Account.findOne({ email }) as IAccount;
         } catch (error) {
             console.error(`AccountService findAccountByEmail error: ${error}`);
             throw new Error();
         }
     }
 
-    public static async getRolesByAccountId(accountId: string)  {
+    public async getRolesByAccountId(accountId: string)  {
         try {
             const roles = await Permission.find({ accountId }).populate('Role');
             return roles;
@@ -33,7 +32,7 @@ export class AccountService {
         }
     }
 
-    public static async getMenuByAccountId(accountId: string)  {
+    public async getMenuByAccountId(accountId: string)  {
         try {
             const roles = await Permission.find({ accountId }).populate('Role');
             return roles;

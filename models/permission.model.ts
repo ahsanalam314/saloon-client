@@ -1,7 +1,7 @@
 import mongoose, { Model, Schema } from "mongoose";
-import { IPermissionModel } from "./interface/permission.mode.interface";
+import { IPermission } from "./interface/permission.mode.interface";
 
-const PermissionSchema: Schema<IPermissionModel> = new mongoose.Schema({
+const PermissionSchema: Schema<IPermission> = new mongoose.Schema({
     roleId: {
         type: Schema.Types.ObjectId,
         ref: 'Roles',
@@ -36,6 +36,6 @@ const PermissionSchema: Schema<IPermissionModel> = new mongoose.Schema({
 });
 
 
-const Permission: Model<IPermissionModel> = mongoose.model<IPermissionModel>('Permission', PermissionSchema);
+const Permission: Model<IPermission> = mongoose.model<IPermission>('Permission', PermissionSchema);
 
 export { Permission };

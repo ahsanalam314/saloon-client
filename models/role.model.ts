@@ -1,7 +1,7 @@
 import mongoose, { Model, Schema } from "mongoose";
-import { IRoleModel } from './interface/role.model.interface';
+import { IRole } from './interface/role.model.interface';
 
-const RoleSchema: Schema<IRoleModel> = new mongoose.Schema({
+const RoleSchema: Schema<IRole> = new mongoose.Schema({
     name: {
         type: String,
         required: true,
@@ -10,6 +10,6 @@ const RoleSchema: Schema<IRoleModel> = new mongoose.Schema({
 });
 
 
-const Roles: Model<IRoleModel> = mongoose.model<IRoleModel>('Role', RoleSchema);
+const Roles: Model<IRole> = mongoose.model<IRole>('Role', RoleSchema);
 
 export { Roles };

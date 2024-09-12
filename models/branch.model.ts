@@ -1,7 +1,7 @@
 import mongoose, { Model, Schema } from "mongoose";
-import { IBranchModel } from "./interface/branch.model.interface";
+import { IBranch } from "./interface/branch.model.interface";
 
-const BranchSchema: Schema<IBranchModel> = new mongoose.Schema({
+const BranchSchema: Schema<IBranch> = new mongoose.Schema({
     companyId: {
         type: Schema.Types.ObjectId,
         ref: 'Company',
@@ -40,6 +40,6 @@ const BranchSchema: Schema<IBranchModel> = new mongoose.Schema({
 });
 
 
-const Branch: Model<IBranchModel> = mongoose.model<IBranchModel>('Branch', BranchSchema);
+const Branch: Model<IBranch> = mongoose.model<IBranch>('Branch', BranchSchema);
 
 export { Branch };

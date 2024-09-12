@@ -2,16 +2,21 @@ import { Request, Response } from "express";
 import { AccountService } from "../services/account.service";
 import { errorResponse, successResponse } from '../util/response.helper';
 import { ResponseMessage } from "../contants/response-message.contant";
-import { IAccount } from "../interface/account.interface";
-import { IAccountModel } from "../models/interface/account.model.interface";
+import { IAccount } from "../models/interface/account.model.interface";
 import { comparePassword, createToken } from "../util/helper";
 
 export class AccountController {
 
+    private accountService: AccountService;
+
+    constructor() {
+        this.accountService = new AccountService();
+    }
+
     public async registerAccount(request: Request, response: Response) {
         try {
 
-            const account: IAccountModel = await AccountService.registerAccount(request.body as IAccount);
+            const account: IAccount = await this.accountService.registerAccount(request.body);
             return response.status(200).json(successResponse(ResponseMessage.User.successfullyRegistered, account));
 
         } catch (error) {
@@ -23,7 +28,7 @@ export class AccountController {
     public async login(request: Request, response: Response) {
         try {
             const { email, password } = request.body;
-            const account = await AccountService.findAccountByEmail(email);
+            const account = await this.accountService.findAccountByEmail(email);
 
             if (!account) {
                 return response.status(404).json(errorResponse(ResponseMessage.User.emailNotFound));

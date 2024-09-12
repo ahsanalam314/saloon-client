@@ -1,8 +1,10 @@
 import { Document } from 'mongoose';
 
-export interface ICompanyModel extends Document {
+export interface ICompany extends Document {
+    tenantId: string;
     name: string;
     contact: string;
+    address: string;
     details: string;
     createdAt: Date;
     createdBy: string;

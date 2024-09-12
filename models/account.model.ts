@@ -1,8 +1,8 @@
 import mongoose, { Model, Schema } from "mongoose";
-import { IAccountModel } from './interface/account.model.interface';
+import { IAccount } from './interface/account.model.interface';
 import bcrypt from 'bcrypt';
 
-const AccountSchema: Schema<IAccountModel> = new mongoose.Schema({
+const AccountSchema: Schema<IAccount> = new mongoose.Schema({
     firstName: {
         type: String,
         required: true,
@@ -16,16 +16,20 @@ const AccountSchema: Schema<IAccountModel> = new mongoose.Schema({
         required: true,
         unique: true
     },
-    companyId: {
-        type: Schema.Types.ObjectId,
-        ref: 'Company',
-        required: true
-    },
     password: {
         type: String,
         required: true,
         minlength: 6,
         maxlength: 20
+    },
+    companyId: {
+        type: Schema.Types.ObjectId,
+        ref: 'Company',
+        required: true
+    },
+    tenantId: {
+        type: String,
+        required: true
     },
     createdAt: {
         type: Date,
@@ -47,7 +51,7 @@ const AccountSchema: Schema<IAccountModel> = new mongoose.Schema({
     }
 });
 
-AccountSchema.pre<IAccountModel>('save', async function (next) {
+AccountSchema.pre<IAccount>('save', async function (next) {
     if (!this.isModified('password')) {
         return next();
     }
@@ -62,6 +66,6 @@ AccountSchema.pre<IAccountModel>('save', async function (next) {
 
 });
 
-const Account: Model<IAccountModel> = mongoose.model<IAccountModel>('Account', AccountSchema);
+const Account: Model<IAccount> = mongoose.model<IAccount>('Account', AccountSchema);
 
 export { Account };

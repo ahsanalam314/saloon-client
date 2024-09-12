@@ -1,5 +1,11 @@
 export class ResponseMessage {
 
+    public static Company = {
+        companyRegistered: 'Company is registered successfully',
+        companyNotRegistered: 'Company is not registered',
+
+    }
+
     public static User = {
         notRegistered: 'User not registered',
         successfullyRegistered: 'User registered successfully',

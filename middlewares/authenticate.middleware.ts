@@ -5,8 +5,8 @@ import jwt from 'jsonwebtoken';
 
 
 const AllowedAPIs = [ 
-    'api/user/login', 
-    'api/user/register' 
+    'api/account/login', 
+    'api/account/register' 
 ];
 
 const authenticate = (request: Request, response: Response, next: NextFunction) => {

@@ -1,6 +1,6 @@
 import { Document } from 'mongoose';
 
-export interface IBranchModel extends Document {
+export interface IBranch extends Document {
     companyId: Object;
     name: string;
     address: string;
