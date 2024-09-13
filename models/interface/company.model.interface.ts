@@ -5,7 +5,12 @@ export interface ICompany extends Document {
     name: string;
     contact: string;
     address: string;
-    details: string;
+    phoneNo: string;
+    email: string;
+    buildingName: string;
+    street: string;
+    country: string;
+    city: string;
     createdAt: Date;
     createdBy: string;
     updatedAt: Date;

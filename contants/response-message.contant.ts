@@ -29,6 +29,12 @@ export class ResponseMessage {
     public static Errors = {
         defaultMessage: 'Something went wrong',
         authenticationMessage: 'Authentication error',
+        recordNotFound: 'Record not found',
+        internalServerError: 'Internal server error',
+        unauthorized: 'Unauthorized',
+        forbidden: 'Forbidden',
+        noTokenProvided: 'Access denied. No token provided.',
+        invalidToken: 'Invalid token.'
     }
 
 

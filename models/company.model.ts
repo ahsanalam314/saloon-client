@@ -13,18 +13,31 @@ const CompanySchema: Schema<ICompany> = new mongoose.Schema({
         type: String,
         required: true,
     },
-    contact: {
-        type: String,
-        required: true,
-    },
-    address: {
-        type: String,
-        required: true,
-    },
-    details: {
+    phoneNo: {
         type: String,
         required: true,
         unique: true
+    },
+    email: {
+        type: String,
+        required: true,
+        unique: true
+    },
+    buildingName: {
+        type: String,
+        required: true,
+    },
+    street: {
+        type: String,
+        required: true,
+    },
+    country: {
+        type: String,
+        required: true,
+    },
+    city: {
+        type: String,
+        required: true,
     },
     createdAt: {
         type: Date,

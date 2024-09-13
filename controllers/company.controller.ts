@@ -1,6 +1,6 @@
 import { Request, Response } from "express";
 import { CompanyService } from "../services/company.service";
-import { successResponse } from "../util/response.helper";
+import { serverError, successResponse } from "../util/response.helper";
 import { ResponseMessage } from "../contants/response-message.contant";
 
 export class CompanyController {
@@ -14,10 +14,10 @@ export class CompanyController {
     public async createCompany(request: Request, response: Response) {
         try {
             const companyResponse = await this.companyService.createCompany(request.body);
-            return response.status(200).json(successResponse(ResponseMessage.Company.companyRegistered, companyResponse));
+            return successResponse(response, ResponseMessage.Company.companyRegistered, companyResponse);
         } catch (error) {
             console.error(`CompanyController createCompany error: ${error}`);
-            throw new Error();
+            return serverError(response);
         }
     }
 }

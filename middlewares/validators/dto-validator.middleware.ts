@@ -1,8 +1,8 @@
 import { NextFunction, Request, Response } from "express";
-import { errorResponse } from "../../util/response.helper";
+import { errorResponse, serverError } from "../../util/response.helper";
 import { ResponseMessage } from "../../contants/response-message.contant";
 import { plainToInstance } from "class-transformer";
-import { validate, ValidationError } from "class-validator";
+import { validate } from "class-validator";
 
 export function dtoValidator(dto: any) {
     return async (request: Request, response: Response, next: NextFunction) => {
@@ -17,13 +17,13 @@ export function dtoValidator(dto: any) {
                         validations: error.constraints
                     }
                 })
-                return response.status(500).json(errorResponse(ResponseMessage.Validation.error, validations));
+                return errorResponse(response, ResponseMessage.Validation.error, validations);
             }
 
             next();
         } catch (error) {
             console.error('dtoValidator middleware : ', error);
-            return response.status(500).json(errorResponse(ResponseMessage.Errors.defaultMessage, error));
+            return serverError(response);
         }
     }
 }
