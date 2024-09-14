@@ -1,8 +1,8 @@
-import mongoose, { Model, Schema } from "mongoose";
+import { Schema, model } from "mongoose";
 import { IAccount } from './interface/account.model.interface';
 import bcrypt from 'bcrypt';
 
-const AccountSchema: Schema<IAccount> = new mongoose.Schema({
+const AccountSchema = new Schema<IAccount>({
     firstName: {
         type: String,
         required: true,
@@ -66,6 +66,6 @@ AccountSchema.pre<IAccount>('save', async function (next) {
 
 });
 
-const Account: Model<IAccount> = mongoose.model<IAccount>('Account', AccountSchema);
+const Account = model<IAccount>('Account', AccountSchema);
 
 export { Account };

@@ -1,7 +1,7 @@
-import mongoose, { Model, Schema } from "mongoose";
+import { Schema, model } from "mongoose";
 import { IMenu } from "./interface/menu.model.interace";
 
-const MenuSchema: Schema<IMenu> = new mongoose.Schema({
+const MenuSchema = new Schema<IMenu>({
     name: {
         type: String,
         required: true
@@ -13,6 +13,6 @@ const MenuSchema: Schema<IMenu> = new mongoose.Schema({
 });
 
 
-const Menu: Model<IMenu> = mongoose.model<IMenu>('Menu', MenuSchema);
+const Menu = model<IMenu>('Menu', MenuSchema);
 
 export { Menu };

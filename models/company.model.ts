@@ -1,8 +1,8 @@
-import mongoose, { Model, Schema } from "mongoose";
+import { Schema, model } from "mongoose";
 import { ICompany } from "./interface/company.model.interface";
 import { v4 } from 'uuid';
 
-const CompanySchema: Schema<ICompany> = new mongoose.Schema({
+const CompanySchema = new Schema<ICompany>({
     tenantId: {
         type: String,
         required: true,
@@ -60,6 +60,6 @@ const CompanySchema: Schema<ICompany> = new mongoose.Schema({
 });
 
 
-const Company: Model<ICompany> = mongoose.model<ICompany>('Company', CompanySchema);
+const Company = model<ICompany>('Company', CompanySchema);
 
 export { Company };

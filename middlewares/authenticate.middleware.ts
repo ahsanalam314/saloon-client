@@ -2,10 +2,6 @@ import { NextFunction, Request, Response } from "express";
 import { serverError, unauthorized } from "../util/response.helper";
 import { ResponseMessage } from "../contants/response-message.contant";
 import { extractToken, isPathAllowed, verifyToken } from '../util/helper';
-import jwt from 'jsonwebtoken';
-
-
-const SECRET_KEY = process.env.SECRET_KEY as string;
 
 export const authenticate = async (request: Request, response: Response, next: NextFunction) => {
     try {
