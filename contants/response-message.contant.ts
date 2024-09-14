@@ -34,7 +34,7 @@ export class ResponseMessage {
         unauthorized: 'Unauthorized',
         forbidden: 'Forbidden',
         noTokenProvided: 'Access denied. No token provided.',
-        invalidToken: 'Invalid token.'
+        invalidToken: 'Invalid token.',
     }
 
 

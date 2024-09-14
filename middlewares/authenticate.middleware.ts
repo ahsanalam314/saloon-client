@@ -1,35 +1,32 @@
 import { NextFunction, Request, Response } from "express";
-import { errorResponse } from "../util/response.helper";
+import { serverError, unauthorized } from "../util/response.helper";
 import { ResponseMessage } from "../contants/response-message.contant";
+import { extractToken, isPathAllowed, verifyToken } from '../util/helper';
 import jwt from 'jsonwebtoken';
 
 
-const AllowedAPIs = [ 
-    'api/account/login', 
-    'api/account/register' 
-];
+const SECRET_KEY = process.env.SECRET_KEY as string;
 
-const authenticate = (request: Request, response: Response, next: NextFunction) => {
+export const authenticate = async (request: Request, response: Response, next: NextFunction) => {
     try {
-        if (AllowedAPIs && AllowedAPIs.includes(request.path)) {
+        if (isPathAllowed(request.path)) {
             return next();
         }
 
-        const token = request.header('Authorization')?.split(' ')[1];
-
+        const token = extractToken(request);
         if (!token) {
-        return response.status(401).json({ message: 'Access denied. No token provided.' });
+            return unauthorized(response, ResponseMessage.Errors.noTokenProvided);
         }
 
-        jwt.verify(token, process.env.SECRET_KEY as string, (err, account) => {
-            if (err) {
-                return response.status(403).json({ message: 'Invalid token.' });
-            }
-            console.info('Autentication Successfull');
-            next();
-        });
+        const verified = await verifyToken(token);
+        if (!verified) {
+            return unauthorized(response, ResponseMessage.Errors.invalidToken);
+        }
+
+        next();
+
     } catch (error) {
         console.error(`authenticate middleware error: ${error}`);
-        return response.status(500).json(errorResponse(ResponseMessage.Errors.authenticationMessage, error));
+        return error instanceof Error ? serverError(response) : unauthorized(response);
     }
 }
