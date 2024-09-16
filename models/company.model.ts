@@ -39,6 +39,11 @@ const CompanySchema = new Schema<ICompany>({
         type: String,
         required: true,
     },
+    status:{
+        type: String,
+        required: true,
+        enum: ['Active', 'Pending Approval', 'Suspended', 'Inactive', 'Closed', 'Rejected'],
+    },
     createdAt: {
         type: Date,
         required: true,

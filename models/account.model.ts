@@ -31,6 +31,11 @@ const AccountSchema = new Schema<IAccount>({
         type: String,
         required: true
     },
+    status:{
+        type: String,
+        required: true,
+        enum: ['Active', 'Pending Activation', 'Suspended', 'Deactivated', 'Deletedw'],
+    },
     createdAt: {
         type: Date,
         required: true,

@@ -7,6 +7,7 @@ export interface IAccount extends Document {
     password: string;
     companyId: Object;
     tenantId: string;
+    status: string;
     createdAt: Date;
     createdBy: string;
     updatedAt: Date;

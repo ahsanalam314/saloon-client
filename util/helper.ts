@@ -4,12 +4,13 @@ import jwt from 'jsonwebtoken';
 import { AllowedAPIs } from '../contants/allowedApi.constant';
 import { unauthorized } from './response.helper';
 import { ResponseMessage } from '../contants/response-message.contant';
+import { IAccount } from '../models/interface/account.model.interface';
 
 export function comparePassword(password: string, encrptPassword: string): Promise<boolean> {
     return bcrypt.compare(password, encrptPassword);
 }
 
-export function createToken(data: any): string {
+export function createToken(data: IAccount): string {
     return jwt.sign(data, process.env.SECRET_KEY as string, { expiresIn: '1h' });
 }
 

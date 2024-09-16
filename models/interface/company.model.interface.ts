@@ -11,6 +11,7 @@ export interface ICompany extends Document {
     street: string;
     country: string;
     city: string;
+    status: string;
     createdAt: Date;
     createdBy: string;
     updatedAt: Date;
