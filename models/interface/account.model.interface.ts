@@ -1,4 +1,5 @@
 import { Document } from 'mongoose';
+import { AccountStatus } from '../../enums';
 
 export interface IAccount extends Document {
     firstName: string;
@@ -7,7 +8,7 @@ export interface IAccount extends Document {
     password: string;
     companyId: Object;
     tenantId: string;
-    status: string;
+    status: AccountStatus;
     createdAt: Date;
     createdBy: string;
     updatedAt: Date;

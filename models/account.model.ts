@@ -1,6 +1,7 @@
 import { Schema, model } from "mongoose";
 import { IAccount } from './interface/account.model.interface';
 import bcrypt from 'bcrypt';
+import { AccountStatus } from "../enums";
 
 const AccountSchema = new Schema<IAccount>({
     firstName: {
@@ -34,7 +35,8 @@ const AccountSchema = new Schema<IAccount>({
     status:{
         type: String,
         required: true,
-        enum: ['Active', 'Pending Activation', 'Suspended', 'Deactivated', 'Deletedw'],
+        enum: Object.values(AccountStatus),
+        default: AccountStatus.PENDING_ACTIVATION
     },
     createdAt: {
         type: Date,

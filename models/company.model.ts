@@ -1,6 +1,7 @@
 import { Schema, model } from "mongoose";
 import { ICompany } from "./interface/company.model.interface";
 import { v4 } from 'uuid';
+import { CompanyStatus } from "../enums";
 
 const CompanySchema = new Schema<ICompany>({
     tenantId: {
@@ -39,10 +40,11 @@ const CompanySchema = new Schema<ICompany>({
         type: String,
         required: true,
     },
-    status:{
+    status: {
         type: String,
         required: true,
-        enum: ['Active', 'Pending Approval', 'Suspended', 'Inactive', 'Closed', 'Rejected'],
+        enum: Object.values(CompanyStatus),
+        default: CompanyStatus.PENDING_APPROVAL
     },
     createdAt: {
         type: Date,
