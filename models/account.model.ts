@@ -1,8 +1,9 @@
-import mongoose, { Model, Schema } from "mongoose";
-import { IUserModel } from './interface/user.model.interface';
+import { Schema, model } from "mongoose";
+import { IAccount } from './interface/account.model.interface';
 import bcrypt from 'bcrypt';
+import { AccountStatus } from "../enums";
 
-const UserSchema: Schema<IUserModel> = new mongoose.Schema({
+const AccountSchema = new Schema<IAccount>({
     firstName: {
         type: String,
         required: true,
@@ -22,19 +23,42 @@ const UserSchema: Schema<IUserModel> = new mongoose.Schema({
         minlength: 6,
         maxlength: 20
     },
+    companyId: {
+        type: Schema.Types.ObjectId,
+        ref: 'Company',
+        required: true
+    },
+    tenantId: {
+        type: String,
+        required: true
+    },
+    status:{
+        type: String,
+        required: true,
+        enum: Object.values(AccountStatus),
+        default: AccountStatus.PENDING_ACTIVATION
+    },
     createdAt: {
         type: Date,
         required: true,
         default: Date.now
+    },
+    createdBy: {
+        type: String,
+        required: false,
     },
     updatedAt: {
         type: Date,
         required: true,
         default: Date.now
     },
+    updatedBy: {
+        type: String,
+        required: false,
+    }
 });
 
-UserSchema.pre<IUserModel>('save', async function (next) {
+AccountSchema.pre<IAccount>('save', async function (next) {
     if (!this.isModified('password')) {
         return next();
     }
@@ -49,6 +73,6 @@ UserSchema.pre<IUserModel>('save', async function (next) {
 
 });
 
-const User: Model<IUserModel> = mongoose.model<IUserModel>('Users', UserSchema);
+const Account = model<IAccount>('Account', AccountSchema);
 
-export { User };
+export { Account };

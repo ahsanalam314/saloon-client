@@ -1,10 +1,11 @@
-import { IsEmail, IsNotEmpty, Length } from "class-validator";
+import { IsEmail, IsNotEmpty, IsString, Length } from "class-validator";
 
 
 export class LoginDTO {
 
     @IsNotEmpty({ message: 'Email is required' })
     @IsEmail({}, { message: 'Invalid email address' })
+    @IsString({ message: 'Email can not be in numeric' })
     email!: string;
 
     @IsNotEmpty({ message: 'Password is required' })
