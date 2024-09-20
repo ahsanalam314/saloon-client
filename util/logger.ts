@@ -6,11 +6,12 @@ export class Logger implements ILogger {
     private logger = createLogger({
         level: 'info',
         format: format.combine(
+            format.colorize(),
             format.timestamp(),
-            format.json(), // Use JSON format for structured logging
+            format.json(),
             format.printf(({ timestamp, level, message }) => {
-                            return `${timestamp} [${level}]: ${message}`
-                        }),
+                return `${timestamp} [${level}]: ${message}`
+            }),
         ),
         transports: [
             new transports.Console(),
@@ -36,17 +37,4 @@ export class Logger implements ILogger {
     }
 
 }
-
-// const logger = createLogger({
-//     level: 'info',
-//     format: format.combine(
-//         format.timestamp(),
-//         format.printf(({ timestamp, level, message }) => {
-//             return `${timestamp} [${level}]: ${message}`
-//         }),
-//     ),
-//     transports: [
-//         new transports.Console()
-//     ]
-// });
 

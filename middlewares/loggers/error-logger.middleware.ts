@@ -3,11 +3,11 @@ import { Logger } from "../../util/logger"
 
 const logger = new Logger
 
-export const errorLogger = (err: Error, request: Request, response: Response, next: NextFunction): void => {
+export const errorLogger = (error: Error, request: Request, response: Response, next: NextFunction): void => {
     logger.error(JSON.stringify({
         message: 'Error encountered',
-        error: err.message,
-        stack: err.stack,
+        error: error.message,
+        stack: error.stack,
         url: request.originalUrl
     }));
 };

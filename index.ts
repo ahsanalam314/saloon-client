@@ -7,6 +7,7 @@ import cors from 'cors';
 import routes from './routes/routes'
 import { requestLogger } from './middlewares/loggers/request-loggger.middleware';
 import { responseLogger } from './middlewares/loggers/response-logger.middleware';
+import { errorLogger } from './middlewares/loggers/error-logger.middleware';
 
 dotenv.config();
 
@@ -20,8 +21,9 @@ app.use(urlencoded());
 app.use(requestLogger);
 app.use(responseLogger);
 
-
 app.use('/api', routes);
+
+app.use(errorLogger);
 
 app.listen(port, () => {
     console.log(`server runing on port ${port}`);
